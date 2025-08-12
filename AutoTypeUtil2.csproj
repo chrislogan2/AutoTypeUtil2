@@ -1,0 +1,63 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImplicitUsings>enable</ImplicitUsings>
+
+  <!-- Find Windows Kit path and then SignTool path for the post-build event -->
+  <WindowsKitsRoot>$([MSBuild]::GetRegistryValueFromView('HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows Kits\Installed Roots', 'KitsRoot10', null, RegistryView.Registry32, RegistryView.Default))</WindowsKitsRoot>
+  <WindowsKitsRoot Condition="'$(WindowsKitsRoot)' == ''">$([MSBuild]::GetRegistryValueFromView('HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows Kits\Installed Roots', 'KitsRoot81', null, RegistryView.Registry32, RegistryView.Default))</WindowsKitsRoot>
+  <WindowsKitsRoot Condition="'$(WindowsKitsRoot)' == ''">$([MSBuild]::GetRegistryValueFromView('HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows Kits\Installed Roots', 'KitsRoot', null, RegistryView.Registry32, RegistryView.Default))</WindowsKitsRoot>
+  <SignToolPath Condition="'$(SignToolPath)' == '' And '$(Platform)' == 'AnyCPU' and Exists('$(WindowsKitsRoot)bin\x64\signtool.exe')">$(WindowsKitsRoot)bin\x64\</SignToolPath>
+  <SignToolPath Condition="'$(SignToolPath)' == '' And Exists('$(WindowsKitsRoot)bin\$(Platform)\signtool.exe')">$(WindowsKitsRoot)bin\$(Platform)\</SignToolPath>
+  <SignToolPathBin Condition="'$(SignToolPath)' == ''">$([System.IO.Directory]::GetDirectories('$(WindowsKitsRoot)bin',"10.0.*"))</SignToolPathBin>
+  <SignToolPathLen Condition="'$(SignToolPathBin)' != ''">$(SignToolPathBin.Split(';').Length)</SignToolPathLen>
+  <SignToolPathIndex Condition="'$(SignToolPathLen)' != ''">$([MSBuild]::Add(-1, $(SignToolPathLen)))</SignToolPathIndex>
+  <SignToolPathBase Condition="'$(SignToolPathIndex)' != ''">$(SignToolPathBin.Split(';').GetValue($(SignToolPathIndex)))\</SignToolPathBase>
+  <SignToolPath Condition="'$(SignToolPath)' == '' And '$(SignToolPathBase)' != '' And '$(Platform)' == 'AnyCPU'">$(SignToolPathBase)x64\</SignToolPath>
+  <SignToolPath Condition="'$(SignToolPath)' == '' And '$(SignToolPathBase)' != ''">$(SignToolPathBase)$(Platform)\</SignToolPath>
+  <SignAssembly>False</SignAssembly>
+	 <SignThumbprint>A2236D784D75B6B67A0A410D8ECC5E9AA043A72F</SignThumbprint>
+	  <SignTimestampServer>http://timestamp.comodoca.com/rfc3161</SignTimestampServer>
+	  <ApplicationIcon>AppIcon_ico.ico</ApplicationIcon>
+  </PropertyGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="&quot;$(SignToolPath)signtool.exe&quot; sign /fd SHA256 /sha1 $(SignThumbprint) /tr $(SignTimestampServer) /td sha256 $(TargetPath)" />
+ <Exec Command="&quot;$(SignToolPath)signtool.exe&quot; sign /fd SHA256 /sha1 $(SignThumbprint) /tr $(SignTimestampServer) /td sha256 $(TargetDir)AutoTypeUtil2.exe" />
+
+	</Target>
+<Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+  <Exec Command="echo Reference: https://learn.microsoft.com/en-us/visualstudio/ide/reference/pre-build-event-post-build-event-command-line-dialog-box#macros &gt; build-macros.txt&#xD;&#xA;echo ConfigurationName: $(ConfigurationName) &gt;&gt; build-macros.txt&#xD;&#xA;echo OutDir: $(OutDir) &gt;&gt; build-macros.txt&#xD;&#xA;echo DevEnvDir: $(DevEnvDir) &gt;&gt; build-macros.txt&#xD;&#xA;echo PlatformName: $(PlatformName) &gt;&gt; build-macros.txt&#xD;&#xA;echo ProjectDir: $(ProjectDir) &gt;&gt; build-macros.txt&#xD;&#xA;echo ProjectPath: $(ProjectPath) &gt;&gt; build-macros.txt&#xD;&#xA;echo ProjectName: $(ProjectName) &gt;&gt; build-macros.txt&#xD;&#xA;echo ProjectFileName: $(ProjectFileName) &gt;&gt; build-macros.txt&#xD;&#xA;echo ProjectExt: $(ProjectExt) &gt;&gt; build-macros.txt&#xD;&#xA;echo SolutionDir: $(SolutionDir) &gt;&gt; build-macros.txt&#xD;&#xA;echo SolutionPath: $(SolutionPath) &gt;&gt; build-macros.txt&#xD;&#xA;echo SolutionName: $(SolutionName) &gt;&gt; build-macros.txt&#xD;&#xA;echo SolutionFileName: $(SolutionFileName) &gt;&gt; build-macros.txt&#xD;&#xA;echo SolutionExt: $(SolutionExt) &gt;&gt; build-macros.txt&#xD;&#xA;echo TargetDir: $(TargetDir) &gt;&gt; build-macros.txt&#xD;&#xA;echo TargetPath: $(TargetPath) &gt;&gt; build-macros.txt&#xD;&#xA;echo TargetName: $(TargetName) &gt;&gt; build-macros.txt&#xD;&#xA;echo TargetFileName: $(TargetFileName) &gt;&gt; build-macros.txt&#xD;&#xA;echo TargetExt: $(TargetExt) &gt;&gt; build-macros.txt" />
+</Target>
+<ItemGroup>
+  <Content Include="AppIcon_ico.ico" />
+</ItemGroup>
+<ItemGroup>
+  <Compile Update="Properties\Resources.Designer.cs">
+    <DesignTime>True</DesignTime>
+    <AutoGen>True</AutoGen>
+    <DependentUpon>Resources.resx</DependentUpon>
+  </Compile>
+  <Compile Update="Properties\Settings.Designer.cs">
+    <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    <AutoGen>True</AutoGen>
+    <DependentUpon>Settings.settings</DependentUpon>
+  </Compile>
+</ItemGroup>
+<ItemGroup>
+  <EmbeddedResource Update="Properties\Resources.resx">
+    <Generator>ResXFileCodeGenerator</Generator>
+    <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+  </EmbeddedResource>
+</ItemGroup>
+<ItemGroup>
+  <None Update="Properties\Settings.settings">
+    <Generator>SettingsSingleFileGenerator</Generator>
+    <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+  </None>
+</ItemGroup>
+</Project>
