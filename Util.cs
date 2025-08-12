@@ -9,6 +9,8 @@ namespace AutoTypeUtil2
 {
     internal class Util
     {
+        // SentText Hack: https://stackoverflow.com/questions/18291756/send-keys-special-characters-c-sharp
+        // made marginally cleaner with .Contains
         static char[] specialChars = { '{', '}', '(', ')', '+', '^' };
         internal static void SendTextSpecialChars(string blockText)
         {
