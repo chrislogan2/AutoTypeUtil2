@@ -19,5 +19,41 @@ namespace AutoTypeUtil2
             string txt = Regex.Replace(blockText, regexSendKeysPattern, regexSendKeysOutput);
             SendKeys.Send(txt);
         }
+        internal static async void FadeInLabel(System.Windows.Forms.Label o, int interval = 80)
+        {
+            //Object is not fully invisible. Fade it in
+            o.Show();
+            o.ForeColor = System.Drawing.Color.White;
+            await Task.Delay(interval);
+            o.ForeColor = System.Drawing.Color.WhiteSmoke;
+            await Task.Delay(interval);
+            o.ForeColor = System.Drawing.Color.Gray;
+            await Task.Delay(interval);
+            o.ForeColor = System.Drawing.Color.DarkGray;
+            await Task.Delay(interval);
+            o.ForeColor = System.Drawing.Color.Black;
+            await Task.Delay(interval);
+
+        }
+
+        internal static async void FadeOutLabel(System.Windows.Forms.Label o, int interval = 80)
+        {
+            //Object is fully visible. Fade it out
+
+            o.ForeColor = System.Drawing.Color.Black;
+            await Task.Delay(interval);
+            o.ForeColor = System.Drawing.Color.DarkGray;
+            await Task.Delay(interval);
+            o.ForeColor = System.Drawing.Color.Gray;
+            await Task.Delay(interval);
+            o.ForeColor = System.Drawing.Color.WhiteSmoke;
+            await Task.Delay(interval);
+            o.ForeColor = System.Drawing.Color.White;
+            await Task.Delay(interval);
+
+            o.Hide();
+
+
+        }
     }
 }

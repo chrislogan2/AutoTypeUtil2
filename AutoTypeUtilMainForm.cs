@@ -28,7 +28,7 @@ namespace AutoTypeUtil2
             AutoTypeUtil_DelayBox.Text = $"{Properties.Settings.Default.DelayMilliseconds}";
             AutoType_HideTextCheckBox.Checked = Properties.Settings.Default.HiddenText;
             }
-        void hook_KeyPressed(object sender, KeyPressedEventArgs e)
+        private void hook_KeyPressed(object sender, KeyPressedEventArgs e)
         {
             // https://stackoverflow.com/questions/5282588/how-can-i-bring-my-application-window-to-the-front
             this.WindowState = FormWindowState.Minimized;
@@ -64,9 +64,9 @@ namespace AutoTypeUtil2
             System.DateTime nowTimeStamp = System.DateTime.Now;
             System.Diagnostics.Debug.WriteLine($"Saved Defaults... [{nowTimeStamp.ToString()}]");
             AutoTypeUtil_SaveLabel.Text = $"Saved: {System.DateTime.Now.ToString()}";
-            FadeInLabel(AutoTypeUtil_SaveLabel);
+            AutoTypeUtil2.Util.FadeInLabel(AutoTypeUtil_SaveLabel);
             await Task.Delay(3000);
-            FadeOutLabel(AutoTypeUtil_SaveLabel);
+            AutoTypeUtil2.Util.FadeOutLabel(AutoTypeUtil_SaveLabel);
 
             // https://stackoverflow.com/questions/12497826/better-algorithm-to-fade-a-winform
         }
@@ -121,42 +121,7 @@ namespace AutoTypeUtil2
             AutoTypeUtil2.Util.SendTextSpecialChars(toType);
             //  SendKeys.Send("%{Tab}");
         }
-        private async void FadeInLabel(System.Windows.Forms.Label o, int interval = 80)
-        {
-            //Object is not fully invisible. Fade it in
-            o.Show();
-                o.ForeColor = System.Drawing.Color.White;
-                await Task.Delay(interval);
-            o.ForeColor = System.Drawing.Color.WhiteSmoke;
-            await Task.Delay(interval);
-            o.ForeColor =System.Drawing.Color.Gray;
-            await Task.Delay(interval);
-            o.ForeColor = System.Drawing.Color.DarkGray;
-            await Task.Delay(interval);
-            o.ForeColor = System.Drawing.Color.Black;
-            await Task.Delay(interval);
-
-        }
-
-        private async void FadeOutLabel(System.Windows.Forms.Label o, int interval = 80)
-        {
-            //Object is fully visible. Fade it out
-            
-                o.ForeColor =  System.Drawing.Color.Black;
-                await Task.Delay(interval);
-                o.ForeColor =  System.Drawing.Color.DarkGray;
-                await Task.Delay(interval);
-                o.ForeColor =  System.Drawing.Color.Gray;
-                await Task.Delay(interval);
-                o.ForeColor =  System.Drawing.Color.WhiteSmoke;
-                await Task.Delay(interval);
-                o.ForeColor =  System.Drawing.Color.White;
-            await Task.Delay(interval);
-
-            o.Hide();
-
-
-        }
+       
         private void  AutoType_PasteClipboardCheckBox_CheckedChanged(System.Object sender, System.EventArgs e)
         {
             System.Diagnostics.Debug.WriteLine($"Change Type From Clipboard state");
