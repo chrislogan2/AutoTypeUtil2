@@ -20,14 +20,15 @@
   <SignToolPath Condition="'$(SignToolPath)' == '' And '$(SignToolPathBase)' != '' And '$(Platform)' == 'AnyCPU'">$(SignToolPathBase)x64\</SignToolPath>
   <SignToolPath Condition="'$(SignToolPath)' == '' And '$(SignToolPathBase)' != ''">$(SignToolPathBase)$(Platform)\</SignToolPath>
   <SignAssembly>False</SignAssembly>
+    <SignProject>True</SignProject>
 	 <SignThumbprint>f56ef8026b82f7b59384d5ff2b6e7c16e23cd90f</SignThumbprint>
 	  <SignTimestampServer>http://timestamp.comodoca.com/rfc3161</SignTimestampServer>
 	  <ApplicationIcon>AppIcon_ico.ico</ApplicationIcon>
   </PropertyGroup>
 
-  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent" Condition="'$(SignProject)' == 'True' And '$(SignThumprint)' !=''">
     <Exec Command="&quot;$(SignToolPath)signtool.exe&quot; sign /fd SHA256 /sha1 $(SignThumbprint) /tr $(SignTimestampServer) /td sha256 $(TargetPath)" />
- <Exec Command="&quot;$(SignToolPath)signtool.exe&quot; sign /fd SHA256 /sha1 $(SignThumbprint) /tr $(SignTimestampServer) /td sha256 $(TargetDir)AutoTypeUtil2.exe" />
+ <Exec Command="&quot;$(SignToolPath)signtool.exe&quot; sign /fd SHA256 /sha1 $(SignThumbprint) /tr $(SignTimestampServer) /td sha256 $(TargetDir)AutoTypeUtil2.exe"  Condition="'$(SignProject)' == 'True' And '$(SignThumprint)' !=''"/>
 
 	</Target>
 <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
