@@ -129,6 +129,8 @@ namespace AutoTypeUtil2
             {
                 System.Diagnostics.Debug.WriteLine("We Paste from Clipboard now;");
                 pasteFromClipboard = true;
+                AutoType_HideTextCheckBox.Enabled = false;
+                AutoType_HideTextCheckBox.Hide();
                 AutoType_TextBox.Enabled = false;
                 AutoType_TextBox.Hide();
                 AutoType_Button.Focus();
@@ -137,6 +139,8 @@ namespace AutoTypeUtil2
             {
                 System.Diagnostics.Debug.WriteLine("We Paste from textbox now;");
                 pasteFromClipboard = false;
+                AutoType_HideTextCheckBox.Enabled = true;
+                AutoType_HideTextCheckBox.Show();
                 AutoType_TextBox.Enabled = true;
                 AutoType_TextBox.Show();
                 AutoType_TextBox.Focus();

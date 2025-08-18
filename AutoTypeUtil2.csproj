@@ -20,7 +20,7 @@
   <SignToolPath Condition="'$(SignToolPath)' == '' And '$(SignToolPathBase)' != '' And '$(Platform)' == 'AnyCPU'">$(SignToolPathBase)x64\</SignToolPath>
   <SignToolPath Condition="'$(SignToolPath)' == '' And '$(SignToolPathBase)' != ''">$(SignToolPathBase)$(Platform)\</SignToolPath>
   <SignAssembly>False</SignAssembly>
-	 <SignThumbprint>A2236D784D75B6B67A0A410D8ECC5E9AA043A72F</SignThumbprint>
+	 <SignThumbprint>f56ef8026b82f7b59384d5ff2b6e7c16e23cd90f</SignThumbprint>
 	  <SignTimestampServer>http://timestamp.comodoca.com/rfc3161</SignTimestampServer>
 	  <ApplicationIcon>AppIcon_ico.ico</ApplicationIcon>
   </PropertyGroup>
