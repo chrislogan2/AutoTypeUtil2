@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            
             AutoType_Button = new Button();
             AutoType_HideTextCheckBox = new CheckBox();
             AutoType_TextBox = new TextBox();
@@ -139,7 +140,7 @@
             Controls.Add(AutoType_Button);
             Margin = new Padding(3, 4, 3, 4);
             Name = "AutoTypeUtilMain";
-            Text = "AutoTypeUtil";
+            Text = $"AutoTypeUtil - {System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString()}";
             FormClosing += MainWindow_OnClosing;
             ResumeLayout(false);
             PerformLayout();
