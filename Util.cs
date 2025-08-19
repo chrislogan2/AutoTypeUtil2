@@ -12,7 +12,7 @@ namespace AutoTypeUtil2
     {
         // SentText Hack:https://stackoverflow.com/questions/18299216/send-special-character-with-sendkeys
         // made marginally cleaner with .Contains
-        static String regexSendKeysPattern = "[+^%~()]";
+        static String regexSendKeysPattern = "[+^%~(){}]";
         static String regexSendKeysOutput = "{$0}";
         internal static void SendTextSpecialChars(string blockText)
         {
