@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AutoTypeUtilMain));
             AutoType_Button = new Button();
             AutoType_HideTextCheckBox = new CheckBox();
             AutoType_TextBox = new TextBox();
@@ -134,6 +135,7 @@
             Controls.Add(AutoType_HideTextCheckBox);
             Controls.Add(AutoType_Button);
             FormBorderStyle = FormBorderStyle.FixedSingle;
+            Icon = (Icon)resources.GetObject("$this.Icon");
             MaximizeBox = false;
             MaximumSize = new Size(320, 200);
             MinimumSize = new Size(320, 200);
