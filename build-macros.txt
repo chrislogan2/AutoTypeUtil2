@@ -1,6 +1,6 @@
 Reference: https://learn.microsoft.com/en-us/visualstudio/ide/reference/pre-build-event-post-build-event-command-line-dialog-box#macros 
-ConfigurationName: Release 
-OutDir: bin\Release\net8.0-windows\win-x86\ 
+ConfigurationName: Debug 
+OutDir: bin\Debug\net8.0-windows\ 
 DevEnvDir: E:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\ 
 PlatformName: AnyCPU 
 ProjectDir: E:\Projects\AutotypeUtil2\ 
@@ -13,8 +13,8 @@ SolutionPath: E:\Projects\AutotypeUtil2\AutoTypeUtil2.sln
 SolutionName: AutoTypeUtil2 
 SolutionFileName: AutoTypeUtil2.sln 
 SolutionExt: .sln 
-TargetDir: E:\Projects\AutotypeUtil2\bin\Release\net8.0-windows\win-x86\ 
-TargetPath: E:\Projects\AutotypeUtil2\bin\Release\net8.0-windows\win-x86\AutoTypeUtil2.dll 
+TargetDir: E:\Projects\AutotypeUtil2\bin\Debug\net8.0-windows\ 
+TargetPath: E:\Projects\AutotypeUtil2\bin\Debug\net8.0-windows\AutoTypeUtil2.dll 
 TargetName: AutoTypeUtil2 
 TargetFileName: AutoTypeUtil2.dll 
 TargetExt: .dll 

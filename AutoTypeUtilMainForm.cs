@@ -13,6 +13,7 @@ namespace AutoTypeUtil2
             // register the event that is fired after the key press.
             hook.KeyPressed +=
                 new EventHandler<KeyPressedEventArgs>(hook_KeyPressed);
+            this.Text = $"AutoTypeUtil - {System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString()}";
             // register the control + alt + F12 combination as hot key.
             uint modifier_calc = 0;
             foreach (string modifier_key in Properties.Settings.Default.HotKeyModifiers.Split(','))
